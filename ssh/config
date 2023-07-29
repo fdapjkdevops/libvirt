@@ -1,0 +1,14 @@
+# Use id_ed25519_pjkat key for any git that uses @github.com-pj
+Host github.com-pj
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_pjkat
+        
+Host github.com-do
+    HostName github.com
+    User fdapjkdevops
+    IdentityFile ~/.ssh/id_ed25519_fdapjkdevops
+
+# For git, if specifying git@github.com-pj or git@github.com-do,
+#   the user seems unimportant (so far).
+#

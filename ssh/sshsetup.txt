@@ -1,0 +1,75 @@
+----------------------------------------------------------------
+SSH Setup.
+
+First setup your keys, or get them from anther machine.
+
+Place the pub and private keys in ~/.ssh
+Create a file ~/.ssh/config with content like is in this folder.
+
+
+To test the connection to githut:
+   ssh -T git@hithub.com-do
+If you see a message such as:
+   sign_and_send_pubkey: signing failed for ED25519 "/home/fedavis/.ssh/id_ed25519_fdapjkdevops" from agent: agent refused operation
+you need to set the permissions on your public/private keys.
+The sign_and_send_pubkey was preventing things working.   To correct, I did
+    chmod 600 id_ed25519_user        # private key
+    chmod 644 id_ed25519_user.pub    # pub key
+    
+
+I wanted to clone my git location.
+So I performed:
+git clone git@github.com:pjkatz/ProjectNotes.git
+It asked for my password to my keys, which I entered.
+
+It then attemped
+    Cloning into 'ProjectNotes'...
+    sign_and_send_pubkey: signing failed for ED25519 "fdavispa@gmail.com" from agent: agent refused operation
+    sign_and_send_pubkey: signing failed for ED25519 "fdapjkdevops@gmail.com" from agent: agent refused operation
+    remote: Enumerating objects: 15, done.
+    remote: Counting objects: 100% (15/15), done.
+    remote: Compressing objects: 100% (12/12), done.
+    remote: Total 15 (delta 4), reused 10 (delta 2), pack-reused 0
+    Receiving objects: 100% (15/15), done.
+    Resolving deltas: 100% (4/4), done.
+
+This was neat.   It cycled through multiple keys in my set to find one that would work.
+
+There are 3 keys.   github.com-pj, github.com-devops, github.com-do
+    pj:     associates with id_ed25519_pjkat
+    do:     with id_ed25519_fdapjdevops.
+
+--
+--
+git remote add fdapjkdevops git@github.com-do:libvirt.git
+--
+-- 
+Often issue if you are configured with https instead of git.
+Check this will 
+    git remote -v
+
+git@github.com-do:fdapjkdevops/libvirt.git
+
+Was using ssh -T git@github.com-do to test my key.
+It stated it was authenticated, but GitHub does not provide shell access.
+It also stated:
+sign_and_send_pubkey: signing failed for ED25519 "/home/fedavis/.ssh/id_ed25519_fdapjkdevops" from agent: agent refused operation
+To correct, I did
+    chmod 600 id_ed25519_user        # private key
+    chmod 644 id_ed25519_user.pub    # pub key
+
+To see the origina on the repo:
+	git remote -v
+
+#Still need to see how to change the URL, user, etc.
+Probably something like:
+git remote set-url origin git@github.com:username/repo.git
+
+Don't forget your git user, email.
+-- Global
+   git config --global user.name "First_Name Last_Name"
+   git config --global user.email "bubbah@bubbagumpshrimp.com"
+-- local folder
+   git config user.name "First_name Last_Name"
+   git config user.email "hello@home.com"
+    
