@@ -23,13 +23,17 @@ resource "libvirt_volume" "worker" {
    base_volume_id = libvirt_volume.jammy_image.id
 }
 
-# 5. -----> Create the compute vm
 resource "libvirt_domain" "ubi_0120vm" {
   for_each = var.worker_names
   name = each.value
   memory = var.worker_mem
   vcpu   = var.worker_vcpu
 
+  #--------------------------------------------------------------
+  #
+  # CLOUDINIT SECTION
+  #
+  #--------------------------------------------------------------
   cloudinit = libvirt_cloudinit_disk.commoninit.id  
   network_interface {
      network_name = "default" ## ---> This should be the same as your network name 
@@ -52,3 +56,4 @@ resource "libvirt_domain" "ubi_0120vm" {
      autoport    = "true"
   }
 }
+
