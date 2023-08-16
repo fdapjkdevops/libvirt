@@ -2,8 +2,7 @@
 resource "libvirt_volume" "ubuntu-jammy-qcow2" {
   name   = "ubuntujammy.qcow2"
   pool   = "default" ## ---> This should be same as your disk pool name
- #source = "https://cloud-images.ubuntu.com/jammy/20230720/jammy-server-cloudimg-amd64.img"
-  source = "file:///var/lib/libvirt/images/ubuntu-2204base.qcow2"
+ source = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
   format = "qcow2"
 }
 
