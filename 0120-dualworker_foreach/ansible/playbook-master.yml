@@ -1,0 +1,14 @@
+---
+- hosts: allnodes
+  become: true
+  vars:
+    pkg_name: python3
+  tasks:
+  - name: Update the repo cache and apps
+    ansible.builtin.apt:
+      name: "*"
+      state: latest
+  - name: Install {{pkg_name}}
+    package: name={{pkg_name}} state=present
+
+

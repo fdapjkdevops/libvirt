@@ -1,0 +1,8 @@
+./startup.sh    - Start Master, Worker1, Worker2
+./shutdown.sh   - stop master, worker, worker2
+
+# Test nodes
+ansible allnodes -i hosts -m ping
+
+# Run playbook
+ansible-playbook playbook-master.yml
