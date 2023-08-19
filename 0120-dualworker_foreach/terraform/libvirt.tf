@@ -10,7 +10,8 @@ resource "libvirt_volume" "ubuntu-master-image" {
 resource "libvirt_volume" "ubuntu-worker-image" {
   name   = "ubuntujammyworker.qcow2"
   pool   = "default" ## ---> This should be same as your disk pool name
-  source = "file:///var/lib/libvirt/images/ubuntu-2204base.qcow2"
+#  source = "file:///var/lib/libvirt/images/ubuntu-2204base.qcow2"
+  source = "file:///var/lib/libvirt/images/ubuntu-worker.qcow2"
   format = "qcow2"
 }
 

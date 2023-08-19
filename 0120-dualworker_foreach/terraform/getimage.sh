@@ -7,10 +7,6 @@
 if [ -e "jammy-server-cloudimg-amd64.img" ]; then
    echo Already there
 else
-#    curl https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64-disk-kvm.img \
-#        --output 01-jammy-server-cloudimg-amd64-disk-kvm.img
-#    curl https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img \
-#        --output 02-jammy-server-cloudimg-amd64.img
     curl https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img \
         --output jammy-server-cloudimg-amd64.img
 fi
@@ -27,6 +23,8 @@ fi
 cp jammy-server-cloudimg-amd64.img   jammy-server-cloudimg-amd64.qcow2
 cp jammy-server-cloudimg-amd64.qcow2 ubuntu-2204base.qcow2
 cp jammy-server-cloudimg-amd64.qcow2 ubuntu-master.qcow2
+cp jammy-server-cloudimg-amd64.qcow2 ubuntu-worker.qcow2
 #
 # Increase the master size by 5GB
 qemu-img resize ubuntu-master.qcow2 +5G
+qemu-img resize ubuntu-worker.qcow2 +5G
