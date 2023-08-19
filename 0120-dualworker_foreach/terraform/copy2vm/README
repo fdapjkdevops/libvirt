@@ -1,0 +1,4 @@
+# The following files need to go to the VMs
+#    50-cloud-init.conf copied to /etc/ssh/sshd_config.d
+#    nopass.lst copied to /etc/sudoers.d
+
