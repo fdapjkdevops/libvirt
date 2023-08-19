@@ -64,5 +64,22 @@
 #      state: present
 #    with_sequence: count={{ container_count }}
 
+- hosts: master
+  become: true
+  tasks:
+  - name: Set master name
+    ansible.builtin.command: hostnamectl set-hostname master.xyzzy.loc
 
+- hosts: worker1
+  become: true
+  tasks:
+  - name: Set worker1 name
+    ansible.builtin.command: hostnamectl set-hostname worker1.xyzzy.loc
+      
 
+- hosts: worker2
+  become: true
+  tasks:
+  - name: Set worker2 name
+    ansible.builtin.command: hostnamectl set-hostname worker2.xyzzy.loc
+      
