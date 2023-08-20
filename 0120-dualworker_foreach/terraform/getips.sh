@@ -5,7 +5,7 @@ namelist="master worker1 worker2"
 rm -f macaddresses
 rm -f ipvalues.txt
 rm -f ../ansible/hosts
-cp ../ansible/hosts.template ../ansible/hosts > null
+cp ../ansible/hosts.template ../ansible/hosts > /dev/null
 touch macaddresses
 for name in $namelist; do
    mac=$(virsh dumpxml $name | grep "mac address" | awk -F\' ' { print $2}') 
