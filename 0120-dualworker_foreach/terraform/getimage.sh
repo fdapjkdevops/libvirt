@@ -25,6 +25,7 @@ cp jammy-server-cloudimg-amd64.qcow2 ubuntu-2204base.qcow2
 cp jammy-server-cloudimg-amd64.qcow2 ubuntu-master.qcow2
 cp jammy-server-cloudimg-amd64.qcow2 ubuntu-worker.qcow2
 #
-# Increase the master size by 5GB
-qemu-img resize ubuntu-master.qcow2 +5G
-qemu-img resize ubuntu-worker.qcow2 +5G
+# Increase the master size by 5GB   use +5G
+# without the + the size is set
+qemu-img resize ubuntu-master.qcow2 20G
+qemu-img resize ubuntu-worker.qcow2 20G

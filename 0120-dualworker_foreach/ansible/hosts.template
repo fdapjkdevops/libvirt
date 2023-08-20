@@ -5,7 +5,7 @@
 {{WORKER1IP}}
 
 [worker2]
-{{{WORKER2IP}}
+{{WORKER2IP}}
 
 [workernodes]
 {{WORKER1IP}}

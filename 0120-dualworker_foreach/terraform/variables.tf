@@ -20,7 +20,7 @@ variable "worker_vcpu" {
 }
 
 variable "worker_mem" {
-   default = "512"
+   default = "4096"
 }
 
 variable "master_names" {
@@ -30,10 +30,10 @@ variable "master_names" {
 }
 
 variable "master_vcpu" {
-   default = "1"
+   default = "2"
 }
 
 variable "master_mem" {
-   default = "1024"
+   default = "4096"
 }
 
