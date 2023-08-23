@@ -1,0 +1,3 @@
+ansiuser ALL=NOPASSWD: ALL
+fedavis ALL=NOPASSWD: ALL
+
