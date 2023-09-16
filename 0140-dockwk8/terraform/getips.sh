@@ -16,6 +16,8 @@ rm -f macaddresses
 rm -f ipvalues.txt
 rm -f ../ansible/hosts
 cp ../ansible/hosts.template ../ansible/hosts > /dev/null
+cp ../ansible/etchosts.template ../ansible/etchosts > /dev/null
+touch macaddresses
 touch macaddresses
 i=0
 for name in $namelist; do
@@ -33,6 +35,7 @@ for name in $namelist; do
 #   echo uname: $uname -\> $ip
 #   echo substr: $substr
    sed -i $substr ../ansible/hosts
+   sed -i $substr ../ansible/etchosts
 done
 
 
