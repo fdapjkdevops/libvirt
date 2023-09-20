@@ -1,18 +1,9 @@
 [master]
-{{MASTERIP}}
-
-[worker1]
-{{WORKER1IP}}
-
-[worker2]
-{{WORKER2IP}}
+k8master ansible_host={{MASTERIP}}
 
 [workernodes]
-{{WORKER1IP}}
-{{WORKER2IP}}
-
-[masternodes]
-{{MASTERIP}}
+k8worker1 ansible_host={{WORKER1IP}}
+k8worker2 ansible_host={{WORKER2IP}}
 
 [allnodes]
 {{MASTERIP}}

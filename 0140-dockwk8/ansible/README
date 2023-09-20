@@ -1,3 +1,20 @@
+============================================================
+Repo to get k8s configured:
+
+Repo source:
+https://github.com/torgeirl/kubernetes-playbooks.git
+This does not have docker.   So I have to figure how to 
+get docker added without breaking the k8s
+=============================================================
+
+https://www.linuxtechi.com/install-kubernetes-on-ubuntu-22-04/
+
+How to install kubernetes on ubuntu 22-04
+and applied via ansible.
+
+=============================================================
+
+
 ./startup.sh    - Start Master, Worker1, Worker2
 ./shutdown.sh   - stop master, worker, worker2
 
@@ -6,3 +23,36 @@ ansible allnodes -i hosts -m ping
 
 # Run playbook
 ansible-playbook playbook-master.yml
+
+=======================================
+Trying to get master.yml to work.
+
+I added the following into master.yml
+    - name: Install acl
+      apt:
+        state: latest
+        update_cache: true
+        pkg:
+        - acl
+
+Attempted these onto
+  ansible-playbook master.yml -i hosts
+
+--extra-vars "ansible_become_pass=yourPassword"
+--extra-vars "ansible_sudo_pass=yourPassword"
+
+worked:
+ansible-playbook -v  master.yml  -i hosts --extra-vars "ansible_sudo_pass=**ubuntupass**" --extra-vars "ansible_become_pass=**ubuntupass**"
+
+worked:
+ansible-playbook -v  master.yml  -i hosts --extra-vars "ansible_sudo_pass=**ubuntupass*"
+
+
+Trying to figure out the environment info
+First command:
+ansible master -m ansible.builtin.setup -i hosts
+
+From this
+ "ansible_facts":"ansible_all_ipv4_addresses"[0]
+
+ {{ ansible_facts['ansible_all_ipv4_addresses'][0] }}

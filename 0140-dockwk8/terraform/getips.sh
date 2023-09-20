@@ -1,6 +1,6 @@
 #!/bin/bash 
 # Below will get the mac address of master and place into $themac
-#themac=$(virsh dumpxml master | grep "mac address" | awk -F\' ' { print $2}')
+themac=$(virsh dumpxml master | grep "mac address" | awk -F\' ' { print $2}')
 namelist="k8master k8worker1 k8worker2"
 namebaselist="master worker1 worker2"
 #echo "My array: $arr"
@@ -17,6 +17,7 @@ rm -f ipvalues.txt
 rm -f ../ansible/hosts
 cp ../ansible/hosts.template ../ansible/hosts > /dev/null
 cp ../ansible/etchosts.template ../ansible/etchosts > /dev/null
+cp ~/.ssh/config.template ~/.ssh/config > /dev/null
 touch macaddresses
 touch macaddresses
 i=0
@@ -36,6 +37,7 @@ for name in $namelist; do
 #   echo substr: $substr
    sed -i $substr ../ansible/hosts
    sed -i $substr ../ansible/etchosts
+   sed -i $substr ~/.ssh/config
 done
 
 

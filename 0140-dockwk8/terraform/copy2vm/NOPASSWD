@@ -1,3 +1,4 @@
 ansiuser ALL=NOPASSWD: ALL
-fedavis ALL=NOPASSWD: ALL
+fedavis  ALL=NOPASSWD: ALL
+ubuntu   ALL=NOPASSWD: ALL
 
