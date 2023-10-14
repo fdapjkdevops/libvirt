@@ -1,0 +1,109 @@
+---
+- hosts: allnodes
+  become: true
+    #remote_user: ubuntu
+    #become_user: ubuntu
+    #become_method: sudo
+  vars:
+    container_count: 4
+    default_container_name: docker
+    default_container_image: ubuntu
+    default_container_command: sleep 1d
+
+  tasks:
+    - name: Install acl
+      apt:
+        state: latest
+        update_cache: true
+        pkg:
+        - aptitude
+        - acl
+    
+          #- hosts: allnodes
+    #    - name: Install aptitude
+    #  apt:
+    #    name: aptitude
+    #    state: latest
+    #    update_cache: true
+
+          #-- After adding the following two, could not run all the playbooks
+          #    - name: Upgrade all apt packages       
+          #      apt: upgrade=dist force_apt_get=yes
+
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+
+- hosts: master
+  become: true
+  tasks:
+    - name: Set the master name
+      ansible.builtin.command: hostnamectl set-hostname master
+
+- hosts: worker1
+  become: true
+  tasks:
+    - name: Set the worker1 name
+      ansible.builtin.command: hostnamectl set-hostname worker1
+
+- hosts: worker2
+  become: true
+  tasks:
+    - name: Set the worker2 name
+      ansible.builtin.command: hostnamectl set-hostname worker2
+
+- hosts: allnodes
+  become: true  
+  vars:
+    container_count: 4
+    default_container_name: docker
+    default_container_image: ubuntu
+    default_container_command: sleep 1d
+  tasks: 
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+    - name: Pull default Docker image
+      community.docker.docker_image:
+        name: "{{ default_container_image }}"
+        source: pull
+
+    - name: Create default containers
+      community.docker.docker_container:
+        name: "{{ default_container_name }}{{ item }}"
+        image: "{{ default_container_image }}"
+        command: "{{ default_container_command }}"
+        state: present
+      with_sequence: count={{ container_count }}
+
+    - name: Add ubuntu to docker
+      ansible.builtin.shell: |
+         usermod -aG docker ubuntu
+         usermod -aG docker fedavis
+
